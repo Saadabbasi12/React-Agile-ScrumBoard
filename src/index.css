@@ -1,0 +1,24 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+.dark .bg-gray-50 {
+  background-color: #1a202c;
+  transition: background-color 0.3s, color 0.3s;
+}
+.dark .text-gray-900 {
+  color: #f0f0f0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+  background-color: #1a202c;
+}
