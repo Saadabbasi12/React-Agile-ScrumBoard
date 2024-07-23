@@ -10,15 +10,21 @@ const TaskDetails = ({ task, onClose }) => {
         <div className="divide-y divide-gray-300">
           <p className="py-2">
             <strong className="font-semibold">Name:</strong>
-            <span className="text-gray-800 px-2 block overflow-auto max-h-10 break-words">{task.name}</span>
+            <span className="text-gray-800 px-2 block overflow-auto max-h-10 break-words">
+              {task.name}
+            </span>
           </p>
           <p className="py-2">
             <strong className="font-semibold">Description:</strong>
-            <span className="text-gray-800 px-2 block overflow-auto max-h-32 break-words">{task.description}</span>
+            <span className="text-gray-800 px-2 block overflow-auto max-h-32 break-words">
+              {task.description}
+            </span>
           </p>
           <p className="py-2">
             <strong className="font-semibold">Assignee:</strong>
-            <span className="text-gray-800 px-2 block overflow-auto max-h-16 break-words">{task.assignee}</span>
+            <span className="text-gray-800 px-2 block overflow-auto max-h-16 break-words">
+              {task.assignee}
+            </span>
           </p>
           <p className="py-2">
             <strong className="font-semibold">Due Date:</strong>

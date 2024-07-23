@@ -32,6 +32,7 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
     e.preventDefault();
     onAddTask(formData);
   };
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
@@ -97,6 +98,7 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
               onChange={handleChange}
               className="input-field border border-gray-300 p-1 rounded w-full"
               required
+              min={today}
             />
           </div>
           <div className="mb-2">

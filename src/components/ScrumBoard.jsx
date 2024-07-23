@@ -48,7 +48,8 @@ const ScrumBoard = () => {
     } else {
       setTasks((prevTasks) => {
         const updatedTasks = { ...prevTasks };
-        updatedTasks.backlog.push(task);
+
+        updatedTasks.backlog = [task, ...updatedTasks.backlog];
         return updatedTasks;
       });
     }
@@ -100,7 +101,38 @@ const ScrumBoard = () => {
     reader.onload = (e) => {
       try {
         const importedTasks = JSON.parse(e.target.result);
-        setTasks(importedTasks);
+
+        const mergedTasks = { ...tasks };
+
+        Object.keys(importedTasks).forEach((key) => {
+          if (!mergedTasks[key]) {
+            mergedTasks[key] = [];
+          }
+
+          if (key === "backlog") {
+            mergedTasks[key] = [
+              ...importedTasks[key],
+              ...mergedTasks[key].filter(
+                (existingTask) =>
+                  !importedTasks[key].some(
+                    (importedTask) => importedTask.id === existingTask.id
+                  )
+              ),
+            ];
+          } else {
+            mergedTasks[key] = [
+              ...mergedTasks[key],
+              ...importedTasks[key].filter(
+                (importedTask) =>
+                  !mergedTasks[key].some(
+                    (existingTask) => existingTask.id === importedTask.id
+                  )
+              ),
+            ];
+          }
+        });
+
+        setTasks(mergedTasks);
         saveTasks();
       } catch (error) {
         console.error("Error parsing imported tasks:", error);
