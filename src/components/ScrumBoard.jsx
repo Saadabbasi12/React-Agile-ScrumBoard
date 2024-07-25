@@ -186,7 +186,8 @@ const ScrumBoard = () => {
           Export Tasks
         </button>
         <div className="flex items-center border btn btn-warning hover:bg-yellow-200 transition-colors duration-300 border-grey-300  mb-4">
-          <MdImportExport size={25} className="text-gray-600  mr-2" />
+          <MdImportExport size={25} className="text-gray-600  " />
+          <p className="mr-2">Import Tasks</p>
           <input type="file" onChange={importTasks} />
         </div>
       </div>

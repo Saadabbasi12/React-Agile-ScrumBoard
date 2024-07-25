@@ -106,29 +106,17 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
               Spent Time:
             </label>
             <div className="flex items-center">
-              <button
-                type="button"
-                onClick={() => handleSpentTimeChange(-1)}
-                className="btn bg-gray-200 hover:bg-gray-300 text-black px-2 py-1 rounded"
-              >
-                -
-              </button>
               <input
                 type="number"
                 id="spentTime"
                 name="spentTime"
                 value={formData.spentTime}
+                min={0}
+                step={0.1}
                 onChange={handleChange}
-                className="input-field border border-gray-300 p-1 rounded mx-2 w-full"
+                className="input-field border border-gray-300 p-1 rounded  w-full"
                 required
               />
-              <button
-                type="button"
-                onClick={() => handleSpentTimeChange(1)}
-                className="btn bg-gray-200 hover:bg-gray-300 text-black px-2 py-1 rounded"
-              >
-                +
-              </button>
             </div>
           </div>
           <div className="mb-2">
