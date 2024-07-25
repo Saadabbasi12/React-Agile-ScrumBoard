@@ -10,7 +10,7 @@ const TaskDetails = ({ task, onClose }) => {
         <div className="divide-y divide-gray-300">
           <p className="py-2">
             <strong className="font-semibold">Name:</strong>
-            <span className="text-gray-800 px-2 block overflow-auto max-h-10 break-words">
+            <span className="text-gray-800 px-2 block overflow-auto max-h-10 break-words ">
               {task.name}
             </span>
           </p>

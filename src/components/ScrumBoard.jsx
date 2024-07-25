@@ -199,27 +199,27 @@ const ScrumBoard = () => {
           isEditing={isEditing}
         />
       )}
-    <div className="flex">
-  {[
-    { key: "backlog", display: "Backlog" },
-    { key: "open", display: "Open" },
-    { key: "new", display: "New" },
-    { key: "inprogress", display: "In Progress" },
-    { key: "feedbackneeded", display: "Feedback Needed" },
-    { key: "readyfortesting", display: "Ready for Testing" },
-    { key: "qainprogress", display: "QA In Progress" },
-  ].map((column) => (
-    <div key={column.key} className="flex-1 ">
-      <ColumnBoard
-        title={column.display}
-        tasks={tasks[column.key] || []}
-        onEditTask={editTask}
-        onViewTask={viewTask}
-        onUpdateTaskStatus={updateTaskStatus}
-      />
-    </div>
-  ))}
-</div>
+      <div className="flex">
+        {[
+          { key: "backlog", display: "Backlog" },
+          { key: "open", display: "Open" },
+          { key: "new", display: "New" },
+          { key: "inprogress", display: "In Progress" },
+          { key: "feedbackneeded", display: "Feedback Needed" },
+          { key: "readyfortesting", display: "Ready for Testing" },
+          { key: "qainprogress", display: "QA In Progress" },
+        ].map((column) => (
+          <div key={column.key} className="flex-1 ">
+            <ColumnBoard
+              title={column.display}
+              tasks={tasks[column.key] || []}
+              onEditTask={editTask}
+              onViewTask={viewTask}
+              onUpdateTaskStatus={updateTaskStatus}
+            />
+          </div>
+        ))}
+      </div>
 
       {showTaskDetails && (
         <TaskDetails

@@ -17,7 +17,7 @@ const TaskCard = ({ task, onEditTask, onViewTask, ...props }) => {
 
   return (
     <div className={`${priorityClass()} p-2  mb-1`} {...props}>
-      <h3 className="text-base font-semibold">{task.name}</h3>
+      <h3 className="text-base font-semibold line-clamp-2">{task.name}</h3>
 
       <div className="flex justify-between items-center border-b border-grey-500 text-xs mb-1 pb-1">
         <span className="text-gray-500">Priority: {task.priority}</span>
@@ -28,7 +28,7 @@ const TaskCard = ({ task, onEditTask, onViewTask, ...props }) => {
 
       <div className="text-xs mb-1 flex items-center ">
         <BsFilePersonFill className="mr-1 text-lg" />
-        <span className="text-gray-500">{task.assignee}</span>
+        <span className="text-gray-500 line-clamp-2">{task.assignee}</span>
       </div>
 
       <div className="flex space-x-1 mt-2">
