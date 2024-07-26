@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
   const [formData, setFormData] = useState(
@@ -13,6 +14,9 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
     }
   );
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [spentTimeError, setSpentTimeError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -21,17 +25,40 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
     }));
   };
 
-  const handleSpentTimeChange = (amount) => {
+  const handleSpentTimeChange = (e) => {
+    const value = e.target.value;
+    if (value === "0" && formData.status !== "Backlog") {
+      setSpentTimeError(
+        "Spent time cannot be zero if the task is not in Backlog stage."
+      );
+    } else {
+      setSpentTimeError("");
+    }
     setFormData((prevData) => ({
       ...prevData,
-      spentTime: Math.max(0, parseInt(prevData.spentTime || 0, 10) + amount),
+      spentTime: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.spentTime === "0" && formData.status !== "Backlog") {
+      setSpentTimeError(
+        "Spent time cannot be zero if the task is not in Backlog stage."
+      );
+      return;
+    }
     onAddTask(formData);
   };
+
+  const handlePriorityChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      priority: value,
+    }));
+    setIsDropdownOpen(false);
+  };
+
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -44,7 +71,7 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
           <div className="mb-2">
             <label
               htmlFor="name"
-              className=" block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1"
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1"
             >
               Name:
             </label>
@@ -113,28 +140,56 @@ const AddTaskModal = ({ onClose, onAddTask, task, isEditing }) => {
                 value={formData.spentTime}
                 min={0}
                 step={0.1}
-                onChange={handleChange}
-                className="input-field border border-gray-300 p-1 rounded  w-full"
+                onChange={handleSpentTimeChange}
+                className="input-field border border-gray-300 p-1 rounded w-full"
                 required
               />
             </div>
+            {spentTimeError && (
+              <p className="text-red-600 text-xs mt-1">{spentTimeError}</p>
+            )}
           </div>
           <div className="mb-2">
             <label htmlFor="priority" className="font-semibold">
               Priority:
             </label>
-            <select
-              id="priority"
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-              className="input-field border border-gray-300 p-1 rounded w-full"
-              required
-            >
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
+            <div className="relative">
+              <div
+                className="input-field border border-gray-300 p-1 rounded w-full flex items-center justify-between cursor-pointer"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <span>{formData.priority}</span>
+                <span
+                  className={`transform transition-transform ${
+                    isDropdownOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                >
+                  <IoMdArrowDropdown />
+                </span>
+              </div>
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 w-full border border-gray-300 rounded bg-white divide-y z-10">
+                  <div
+                    className="cursor-pointer text-sm ml-1 hover:bg-orange-500 transition-colors duration-300"
+                    onClick={() => handlePriorityChange("High")}
+                  >
+                    High
+                  </div>
+                  <div
+                    className="cursor-pointer text-sm ml-1 hover:bg-green-500 transition-colors duration-300"
+                    onClick={() => handlePriorityChange("Medium")}
+                  >
+                    Medium
+                  </div>
+                  <div
+                    className="cursor-pointer text-sm ml-1 hover:bg-pink-500 transition-colors duration-300"
+                    onClick={() => handlePriorityChange("Low")}
+                  >
+                    Low
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           <div className="flex justify-end pt-2">
             <button
