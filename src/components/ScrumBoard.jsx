@@ -13,7 +13,7 @@ const ScrumBoard = () => {
   const initialTasks = JSON.parse(localStorage.getItem("tasks")) || {
     backlog: [],
     open: [],
-    New: [],
+    new: [],
     inprogress: [],
     feedbackneeded: [],
     readyfortesting: [],
@@ -48,7 +48,6 @@ const ScrumBoard = () => {
     } else {
       setTasks((prevTasks) => {
         const updatedTasks = { ...prevTasks };
-
         updatedTasks.backlog = [task, ...updatedTasks.backlog];
         return updatedTasks;
       });
@@ -135,6 +134,7 @@ const ScrumBoard = () => {
         setTasks(mergedTasks);
         saveTasks();
       } catch (error) {
+        alert("Please use a valid JSON format");
         console.error("Error parsing imported tasks:", error);
       }
     };
